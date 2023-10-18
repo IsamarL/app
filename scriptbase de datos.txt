@@ -1,0 +1,66 @@
+-- Crear la base de datos
+CREATE DATABASE Biblioteca;
+GO
+
+-- Usar la base de datos
+USE Biblioteca;
+GO
+
+-- Crear la tabla "Libros"
+CREATE TABLE Libros (
+    ID INT PRIMARY KEY IDENTITY(1,1),
+    Titulo NVARCHAR(255),
+    Autor NVARCHAR(255),
+    Genero NVARCHAR(50)
+);
+GO
+-- Crear libros
+CREATE PROCEDURE CrearLibro
+    @Titulo NVARCHAR(255),
+    @Autor NVARCHAR(255),
+    @Genero NVARCHAR(50)
+AS
+BEGIN
+    INSERT INTO Libros (Titulo, Autor, Genero)
+    VALUES (@Titulo, @Autor, @Genero);
+END;
+GO
+--leer "Libros"
+CREATE PROCEDURE LeerLibros
+AS
+BEGIN
+    SELECT * FROM Libros;
+END;
+GO
+-- actualizar  "Libros"
+CREATE PROCEDURE ActualizarLibro
+    @ID INT,
+    @Titulo NVARCHAR(255),
+    @Autor NVARCHAR(255),
+    @Genero NVARCHAR(50)
+AS
+BEGIN
+    UPDATE Libros
+    SET Titulo = @Titulo, Autor = @Autor, Genero = @Genero
+    WHERE ID = @ID;
+END;
+GO
+-- eliminar "Libros"
+CREATE PROCEDURE EliminarLibro
+    @ID INT
+AS
+BEGIN
+    DELETE FROM Libros
+    WHERE ID = @ID;
+END;
+GO
+-- buscar libro por id
+
+CREATE PROCEDURE BuscarLibroPorID
+    @ID INT
+AS
+BEGIN
+    SELECT * FROM Libros
+    WHERE ID = @ID;
+END;
+GO
